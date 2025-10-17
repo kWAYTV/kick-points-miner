@@ -45,8 +45,23 @@ Copy `config.example.json` to `config.json` and configure:
 
 ## Usage
 
+### Standard Python
+
 ```bash
 python main.py
+```
+
+### Docker
+
+```bash
+# Build and run
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop
+docker-compose down
 ```
 
 ## Project Structure

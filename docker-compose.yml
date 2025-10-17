@@ -1,0 +1,9 @@
+services:
+  miner:
+    build: .
+    container_name: kick-points-miner
+    restart: unless-stopped
+    volumes:
+      - ./config.json:/app/config.json:ro
+    environment:
+      - TZ=UTC
