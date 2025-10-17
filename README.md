@@ -66,7 +66,7 @@ src/
 
 ## License
 
-MIT
+[MIT](LICENSE)
 
 ## Disclaimer
 
