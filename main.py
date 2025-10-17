@@ -3,11 +3,10 @@ import random
 import threading
 import time
 from dataclasses import dataclass
-from datetime import datetime
-from pathlib import Path
 from typing import Optional
 
 import cloudscraper
+from loguru import logger
 
 
 @dataclass
@@ -43,7 +42,7 @@ class KickClient:
             response = self.scraper.get(url)
             return response.json()
         except Exception as e:
-            self._log(f"Error fetching channel {username}: {e}")
+            logger.error(f"Error fetching channel {username}: {e}")
             return None
 
     def send_message(self, chatroom_id: int, content: str) -> bool:
@@ -59,14 +58,8 @@ class KickClient:
             self.scraper.post(url, json=payload, headers=headers)
             return True
         except Exception as e:
-            self._log(f"Error sending message: {e}")
+            logger.error(f"Error sending message: {e}")
             return False
-
-    @staticmethod
-    def _log(message: str) -> None:
-        """Log a message with timestamp."""
-        timestamp = datetime.now().strftime("%H:%M:%S")
-        print(f"[{timestamp}] {message}")
 
 
 class ChannelMonitor:
@@ -114,23 +107,17 @@ class ChannelMonitor:
                         self.wait_times["livestream_active"]["min"],
                         self.wait_times["livestream_active"]["max"],
                     )
-                    self._log(
+                    logger.info(
                         f"Sent to {self.username}: {message}. Waiting {wait_time}s."
                     )
                 else:
                     wait_time = self.wait_times["livestream_inactive"]
-                    self._log(f"{self.username} is offline. Waiting {wait_time}s.")
+                    logger.info(f"{self.username} is offline. Waiting {wait_time}s.")
 
                 time.sleep(wait_time)
             except Exception as e:
-                self._log(f"Error monitoring {self.username}: {e}")
+                logger.error(f"Error monitoring {self.username}: {e}")
                 time.sleep(self.wait_times.get("error_wait", 60))
-
-    @staticmethod
-    def _log(message: str) -> None:
-        """Log a message with timestamp."""
-        timestamp = datetime.now().strftime("%H:%M:%S")
-        print(f"[{timestamp}] {message}")
 
 
 class PointsMiner:
@@ -158,13 +145,13 @@ class PointsMiner:
             threads.append(thread)
             thread.start()
 
-        print(f"Started monitoring {len(self.config.channels)} channels")
+        logger.success(f"Started monitoring {len(self.config.channels)} channels")
 
         try:
             while True:
                 time.sleep(1)
         except KeyboardInterrupt:
-            print("\nShutting down...")
+            logger.info("Shutting down...")
 
 
 def main() -> None:
