@@ -64,16 +64,6 @@ docker-compose logs -f
 docker-compose down
 ```
 
-## Project Structure
-
-```
-src/
-├── config.py    # Configuration management
-├── client.py    # Kick.com API client
-├── monitor.py   # Channel monitoring logic
-└── miner.py     # Orchestration layer
-```
-
 ## Requirements
 
 - Python 3.10+
