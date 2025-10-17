@@ -16,6 +16,6 @@ class Config:
     @classmethod
     def load(cls, path: str = "config.json") -> "Config":
         """Load configuration from JSON file."""
-        with open(path, "r") as f:
+        with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
         return cls(**data)
