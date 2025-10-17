@@ -1,7 +1,7 @@
-"""Entry point for Kick Points Miner."""
+"""Entry point when running as module: python -m src"""
 
-from src.config import Config
-from src.miner import PointsMiner
+from .config import Config
+from .miner import PointsMiner
 
 
 def main() -> None:
