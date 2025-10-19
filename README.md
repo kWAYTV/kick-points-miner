@@ -13,7 +13,7 @@ Automated bot for mining channel points on Kick.com through periodic chat intera
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/kick-points-miner.git
+git clone https://github.com/kWAYTV/kick-points-miner.git
 cd kick-points-miner
 pip install -r requirements.txt
 ```
